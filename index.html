@@ -33,7 +33,7 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function() {    //ensure that the code inside the function runs only after the entire HTML document has been loaded
             // Fetch genres from the API
             $.get('http://localhost:5000/api/genres', function(data) {
                 const genres = data.genres;
