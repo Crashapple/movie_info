@@ -33,50 +33,48 @@
     </div>
 
     <script>
-        $(document).ready(function() {    //ensure that the code inside the function runs only after the entire HTML document has been loaded
-            // Fetch genres from the API
-            $.get('http://localhost:5000/api/genres', function(data) {
-                const genres = data.genres;
-                genres.forEach(function(genre) {
-                    $('#genreSelect').append(new Option(genre, genre));
+        // Fetch genres from the API
+        $.get('http://localhost:5000/api/genres', function(data) {
+            const genres = data.genres;
+            genres.forEach(function(genre) {
+                $('#genreSelect').append(new Option(genre, genre));
+            });
+        });
+
+        // Fetch movies based on selected genre
+        $('#genreSelect').change(function() {
+            const genre = $(this).val();
+            if (genre) {
+                $('#movieSelect').prop('disabled', false);
+                $('#movieSelect').empty().append(new Option('Choose Movie', ''));
+                $.get('http://localhost:5000/api/movies?genre=' + genre, function(data) {
+                    const movies = data.movies;
+                    movies.forEach(function(movie) {
+                        $('#movieSelect').append(new Option(movie.title, movie.id));
+                    });
                 });
-            });
+            } else {
+                $('#movieSelect').prop('disabled', true).empty().append(new Option('Choose Movie', ''));
+            }
+        });
 
-            // Fetch movies based on selected genre
-            $('#genreSelect').change(function() {
-                const genre = $(this).val();
-                if (genre) {
-                    $('#movieSelect').prop('disabled', false);
-                    $('#movieSelect').empty().append(new Option('Choose Movie', ''));
-                    $.get('http://localhost:5000/api/movies?genre=' + genre, function(data) {
-                        const movies = data.movies;
-                        movies.forEach(function(movie) {
-                            $('#movieSelect').append(new Option(movie.title, movie.id));
-                        });
-                    });
-                } else {
-                    $('#movieSelect').prop('disabled', true).empty().append(new Option('Choose Movie', ''));
-                }
-            });
-
-            // Fetch movie details based on selected movie
-            $('#movieSelect').change(function() {
-                const movieId = $(this).val();
-                if (movieId) {
-                    $.get('http://localhost:5000/api/movie/' + movieId, function(data) {
-                        const movie = data.movie;
-                        $('#movieDetails').html(`
-                            <p><strong>Title:</strong> ${movie.title}</p>
-                            <p><strong>Genre:</strong> ${movie.genres}</p>
-                            <p><strong>Release Year:</strong> ${movie.startYear}</p>
-                            <p><strong>Rating:</strong> ${movie.averageRating}</p>
-                            <p><strong>Reviews:</strong> ${movie.numVotes}</p>
-                        `);
-                    });
-                } else {
-                    $('#movieDetails').empty();
-                }
-            });
+        // Fetch movie details based on selected movie
+        $('#movieSelect').change(function() {
+            const movieId = $(this).val();
+            if (movieId) {
+                $.get('http://localhost:5000/api/movie/' + movieId, function(data) {
+                    const movie = data.movie;
+                    $('#movieDetails').html(`
+                        <p><strong>Title:</strong> ${movie.title}</p>
+                        <p><strong>Genre:</strong> ${movie.genres}</p>
+                        <p><strong>Release Year:</strong> ${movie.startYear}</p>
+                        <p><strong>Rating:</strong> ${movie.averageRating}</p>
+                        <p><strong>Reviews:</strong> ${movie.numVotes}</p>
+                    `);
+                });
+            } else {
+                $('#movieDetails').empty();
+            }
         });
     </script>
 </body>
