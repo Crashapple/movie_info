@@ -12,14 +12,18 @@ db = client['imdb']
 collection = db['all_imdb_data']
 
 def get_genres_list():
+    
     # Get distinct genres from the collection
     genres = collection.distinct('genres')
+    
     # Split the comma-separated genres and flatten the list
     all_genres = []
     for genre_list in genres:
         all_genres.extend(genre_list.split(','))
+    
     # Remove duplicates and sort the genres
     unique_genres = sorted(set(all_genres))
+    unique_genres = [g for g in unique_genres if g != 'Adult']
     print(unique_genres)
     return unique_genres
 
@@ -31,7 +35,7 @@ def get_genres():
 @app.route('/api/movies', methods=['GET'])
 def get_movies():
     genre = request.args.get('genre')
-    movies = collection.find({'genres': {'$in': [genre]}}, {'_id': 1, 'title': 1})
+    movies = collection.find({'genres': {'$regex': genre}, 'titleType': 'movie'}, {'_id': 1, 'title': 1}).limit(10000).sort('title', 1)
     movies_list = [{'id': str(movie['_id']), 'title': movie['title']} for movie in movies]
     return jsonify({'movies': movies_list})
 
