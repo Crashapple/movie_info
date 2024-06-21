@@ -23,7 +23,8 @@ db = client['imdb']
 def load_title_basics(file_path, collection_name):
     df = pd.read_csv(file_path, delimiter='\t', na_values='\\N', dtype={'startYear': 'str'}, low_memory=False)
     df['startYear'] = pd.to_numeric(df['startYear'], errors='coerce')
-    df = df[df['startYear'] >= 2000]
+    df = df[df['startYear'] >= 2023]
+    df = df[df['titleType'] == 'movie']
     df.fillna("", inplace=True)
     records = df.to_dict(orient='records')
     db[collection_name].insert_many(records)

@@ -35,7 +35,7 @@ def get_genres():
 @app.route('/api/movies', methods=['GET'])
 def get_movies():
     genre = request.args.get('genre')
-    movies = collection.find({'genres': {'$regex': genre}, 'titleType': 'movie'}, {'_id': 1, 'title': 1}).limit(10000).sort('title', 1)
+    movies = collection.find({'genres': {'$regex': genre}}, {'_id': 1, 'title': 1}).sort('title', 1)
     movies_list = [{'id': str(movie['_id']), 'title': movie['title']} for movie in movies]
     return jsonify({'movies': movies_list})
 
