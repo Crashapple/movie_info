@@ -1,0 +1,28 @@
+title_basics
+-
+tconst string
+titleType string # filter for movie
+primaryTitle string
+originalTitle string
+isAdult Double
+startYear Double # filter for 2023 or after
+endYear string
+runtimeMinutes string
+genres string # filter to exclude Adult
+
+title_akas
+-
+tconst string FK - title_basics.tconst
+ordering Int32
+title string
+region string # filter for US
+language string
+types string
+attributes string
+isOriginalTitle Int32
+
+title_ratings
+-
+tconst string FK - title_basics.tconst
+averageRating Double
+numVotes Int32

@@ -10,6 +10,9 @@ Trevor McDonough
 
 Randy Silvey
 
+# Project Overview
+
+In this project, we took movie data supplied from the IMDB website, and used it to create an app where a user can select a genre and movie from drop downs to obtain additional information on the movie, including ratings. 
 
 # Requirements
 
@@ -45,10 +48,6 @@ For this track, your group will follow data engineering processes. Here are the 
         ○ BEFORE: provide a menu of options for the user to narrow the range of data being extracted from a data source (e.g. API or CSV file, where fields are known in advance).
 
         ○ AFTER: Once the data is stored in the database, add user capability to extract filtered data from the database prior to loading it in a Pandas DataFrame or a JSON output from a Flask API.
-
-# Project Overview
-
-In this project, we took movie data supplied from the IMDB website, and used it to create an app where a user can select a genre and movie from drop downs to obtain additional information on the movie, including ratings. 
 
 # Instructions
 
@@ -91,15 +90,15 @@ For this project, we elected to use MongoDB. This gave us freedom to search the 
 
 # ETL Workflow
 
-
+See saved files QuickDBD-export.png and movies.txt for ETL workflow.
 
 # Ethical Considerations
 
-
+The information used in this project is public domain information. The files downloaded from IMDB were openly available for use. Diplaying this movie data on our app does not lead to any ethical concerns for the use of the data. 
 
 # Data Sources
 
-
+Data was obtained from the IMDB website at https://datasets.imdbws.com/. 
 
 # Notes
 
